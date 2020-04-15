@@ -1,9 +1,9 @@
 extern crate reqwest;
+extern crate bytes;
 
 use std::env;
 
-
-pub fn get_subtitle(hash: &str) -> Result<String, reqwest::Error>
+pub fn get_subtitle(hash: &str) -> Result<bytes::Bytes, reqwest::Error>
 {
     match env::var("SANDBOX")
     {
@@ -11,12 +11,12 @@ pub fn get_subtitle(hash: &str) -> Result<String, reqwest::Error>
             let url = format!("http://sandbox.thesubdb.com/?action=download&hash={}&language=es,en", hash);
             println!("sandbox url: {}", &url);
             let response = request_subtitle(&url).expect("request_subtitle (sandbox) failed");
-            response.text()
+            response.bytes()
         },
         Err(_) => {
             let url = format!("http://api.thesubdb.com/?action=download&hash={}&language=es,en", hash);
             let response = request_subtitle(&url).expect("request_subtitle (api) failed");
-            response.text()
+            response.bytes()
         }
     }
 
@@ -25,9 +25,9 @@ pub fn get_subtitle(hash: &str) -> Result<String, reqwest::Error>
 fn request_subtitle(url: &str) -> Result<reqwest::blocking::Response, reqwest::Error>
 {
     let user_agent = format!("SubDB/1.0 ({}/{}; {})", 
-        env::var("CARGO_PKG_NAME").unwrap(),
-        env::var("CARGO_PKG_VERSION").unwrap(),
-        env::var("CARGO_PKG_HOMEPAGE").unwrap()
+        env!("CARGO_PKG_NAME"),
+        env!("CARGO_PKG_VERSION"),
+        env!("CARGO_PKG_HOMEPAGE")
         );
 
     println!("user_agent: {}", &user_agent);

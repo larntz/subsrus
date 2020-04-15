@@ -22,7 +22,7 @@ mod tests {
     {
         env::set_var("SANDBOX","yes");
         let subtitle = subsdb::get_subtitle(&hasher::file_hash(JUSTIFIED)).expect("Something went wrong");
-        println!("\n\n{}\n\n", subtitle);    
+        println!("\n\n{:?}\n\n", subtitle);    
     }
 
 }
