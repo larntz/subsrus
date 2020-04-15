@@ -19,6 +19,6 @@ fn main() {
             f.write_all(&subsdb::get_subtitle(&hash).expect("binary crash: beep boop"))
                 .expect("file write subtitle.srt failed");
         },
-        None    => println!("None"),
+        None    => println!("\nNo movie file specified.\n"),
     }
 }

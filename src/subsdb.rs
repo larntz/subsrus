@@ -11,15 +11,16 @@ pub fn get_subtitle(hash: &str) -> Result<bytes::Bytes, reqwest::Error>
             let url = format!("http://sandbox.thesubdb.com/?action=download&hash={}&language=es,en", hash);
             println!("sandbox url: {}", &url);
             let response = request_subtitle(&url).expect("request_subtitle (sandbox) failed");
+            println!("headers: {:?}", response.headers());
             response.bytes()
         },
         Err(_) => {
             let url = format!("http://api.thesubdb.com/?action=download&hash={}&language=es,en", hash);
             let response = request_subtitle(&url).expect("request_subtitle (api) failed");
+            println!("headers: {:?}", response.headers());
             response.bytes()
         }
     }
-
 }
 
 fn request_subtitle(url: &str) -> Result<reqwest::blocking::Response, reqwest::Error>
@@ -30,11 +31,28 @@ fn request_subtitle(url: &str) -> Result<reqwest::blocking::Response, reqwest::E
         env!("CARGO_PKG_HOMEPAGE")
         );
 
-    println!("user_agent: {}", &user_agent);
+    if env::var("SANDBOX").is_ok()
+    {
+        println!("user_agent: {}", &user_agent);
+    }
 
-    let client = reqwest::blocking::Client::builder()
+    reqwest::blocking::Client::builder()
         .user_agent(user_agent)
-        .build()?;
+        .build()?
+        .get(url)
+        .send()
+}
 
-    client.get(url).send()
+
+#[cfg(test)]
+mod tests {
+    use crate::subsdb;    
+
+    #[test]
+    fn test_subsdb_get_subtitle()
+    {
+        std::env::set_var("SANDBOX","yes");
+        let subtitle = subsdb::get_subtitle("edc1981d6459c6111fe36205b4aff6c2").expect("Something went wrong");
+        println!("\n\n{:?}\n\n", subtitle);    
+    }
 }
