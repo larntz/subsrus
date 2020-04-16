@@ -30,7 +30,7 @@ pub fn download(source: &str, langs: &str)
 
 fn write_srt_file(filename: String, contents: &Bytes)
 {
-    println!("Writing srt file: \n{}\n", filename);
+    println!("Writing srt file:\n\t{}\n", filename);
 
     let mut f = File::create(filename)
         .expect("file create subtitle.srt failed");
