@@ -1,24 +1,12 @@
-extern crate subsrus;
-extern crate bytes;
-
-use subsrus::hasher;
-use subsrus::subsdb;
-use std::fs::File;
-use std::io::prelude::*;
-use std::env;
+#[macro_use]
+extern crate clap;
+use clap::App;
 
 fn main() {
-    let args: Vec<_> = env::args().collect(); 
+    let yaml = load_yaml!("cli.yml");
+    let matches = App::from_yaml(yaml).get_matches();
+    let langs = matches.value_of("languages").unwrap_or("en");
+    let source = matches.value_of("source_file").expect("source file error");
 
-    match args.get(1) {
-        Some(a) => {
-            let hash = hasher::file_hash(a);
-            println!("hash: {}", &hash);
-
-            let mut f = File::create("subtitle.srt").expect("file create subtitle.srt failed");
-            f.write_all(&subsdb::get_subtitle(&hash).expect("binary crash: beep boop"))
-                .expect("file write subtitle.srt failed");
-        },
-        None    => println!("\nNo movie file specified.\n"),
-    }
+    subsrus::download(source, langs);
 }

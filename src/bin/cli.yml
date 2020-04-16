@@ -1,0 +1,16 @@
+name: subsrus
+version: "0.1.0"
+author: Luke Arntz <luke@blue42.net>
+about: Download subtitles from SubsDB (http://thesubdb.com/)
+args:
+    - languages:
+        short: l 
+        long: languages
+        value_name: lang
+        help: "Comma separated list of preferred languages. Downloads the first available. Example: es,en to download Spanish if available and English as a second choice. Defaults to English."
+        takes_value: true
+        required: false
+    - source_file:
+        help: Source video file. 
+        required: true
+        index: 1
