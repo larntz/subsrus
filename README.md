@@ -30,8 +30,8 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
-    -l, --languages <lang>    Comma separated list of preferred languages. Downloads the first available. Example: es,en
-                              to download Spanish if available and English as a second choice. Defaults to English.
+    -l, --languages <lang>    Comma separated list of languages. Downloads all available. Example: es,en to download
+                              Spanish and English. Defaults to English.
 
 ARGS:
     <source_file>    Source video file.
