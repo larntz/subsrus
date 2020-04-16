@@ -6,6 +6,13 @@ use std::fs::File;
 use std::io::prelude::*;
 use bytes::Bytes;
 
+pub fn upload(source_video: &str, source_subtitle: &str, lang: &str)
+{
+    println!("upload video: \n{}", source_video);
+    println!("upload subtitle: \n{}", source_subtitle);
+    println!("upload language: \n{}", lang);
+}
+
 pub fn download(source: &str, langs: &str)
 {
     println!("\nSearch for subtitles:\n\t{}\n", source);

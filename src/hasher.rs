@@ -17,6 +17,7 @@ pub fn file_hash(name: &str) -> String
 
 fn file_bytes(name: &str) -> [u8; READSIZE * 2 ]
 {
+    println!("looking for {:?}", name);
     let mut f = File::open(name).expect("oops::open"); 
     let mut buffer = [0; READSIZE * 2 ];
     f.read(&mut buffer[..READSIZE]).expect("oops::start");

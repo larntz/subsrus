@@ -1,16 +1,37 @@
 name: subsrus
 version: "0.1.0"
 author: Luke Arntz <luke@blue42.net>
-about: Download subtitles from SubsDB (http://thesubdb.com/)
-args:
-    - languages:
-        short: l 
-        long: languages
-        value_name: lang
-        help: "Comma separated list of languages. Downloads all available. Example: es,en to download Spanish and English. Defaults to English."
-        takes_value: true
-        required: false
-    - source_file:
-        help: Source video file. 
-        required: true
-        index: 1
+about: Download subtitles from SubDB (http://thesubdb.com/)
+subcommands:
+  - download:
+      about: "Download subtitles from SubDB (http://thesubdb.com)"
+      args:
+        - languages:
+            short: l 
+            long: languages
+            value_name: lang
+            help: "Comma separated list of languages. Downloads all available. Example: es,en to download Spanish and English. Defaults to English."
+            takes_value: true
+            required: false
+        - source_video:
+            help: Source video file. 
+            required: true
+            index: 1
+  - upload:
+      about: "Upload subtitles to SubDB (http://thesubdb.com)"
+      args:
+        - language:
+            short: l 
+            long: language
+            value_name: lang
+            help: "Specify the subtitle language."
+            takes_value: true
+            required: true
+        - source_video:
+            help: Source video file. 
+            required: true
+            index: 1
+        - source_subtitle:
+            help: Source subtitle file.
+            required: true
+            index: 2

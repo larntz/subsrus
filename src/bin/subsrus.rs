@@ -5,8 +5,24 @@ use clap::App;
 fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
-    let langs = matches.value_of("languages").unwrap_or("en");
-    let source = matches.value_of("source_file").expect("source file error");
-
-    subsrus::download(source, langs);
+    
+    match matches.subcommand()
+    {
+        ("download", Some(download)) =>
+        {
+            subsrus::download(
+                download.value_of("source_video").expect("source video error"),
+                download.value_of("languages").unwrap_or("en")
+            );
+        },
+        ("upload", Some(upload)) =>
+        {
+            subsrus::upload(
+                upload.value_of("source_video").expect("source video error"),
+                upload.value_of("source_subtitle").expect("source subtitle error"),
+                upload.value_of("language").expect("subtitle language error")
+            );
+        },
+        _ => println!("What do you want from me?")
+    }
 }

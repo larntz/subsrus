@@ -5,6 +5,8 @@ CLI utility to download movie subtitles from the
 
 ## example
 
+### download subtitles
+
 ``` text
 ./subsrus -l es test_vids/justified.mp4
 
@@ -17,13 +19,58 @@ Writing srt file:
 
 ## usage
 
+### subcommands
+
 ``` text
+% target/debug/subsrus --help
 subsrus 0.1.0
 Luke Arntz <luke@blue42.net>
-Download subtitles from SubsDB (http://thesubdb.com/)
+Download subtitles from SubDB (http://thesubdb.com/)
 
 USAGE:
-    subsrus [OPTIONS] <source_file>
+    subsrus [SUBCOMMAND]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+SUBCOMMANDS:
+    download    Download subtitles from SubDB (http://thesubdb.com)
+    help        Prints this message or the help of the given subcommand(s)
+    upload      Upload subtitles to SubDB (http://thesubdb.com)
+```
+
+### upload subtitle
+
+``` text
+% target/debug/subsrus upload --help
+subsrus-upload
+Upload subtitles to SubDB (http://thesubdb.com)
+
+USAGE:
+    subsrus upload <source_video> <source_subtitle> --language <lang>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -l, --language <lang>    Specify the subtitle language.
+
+ARGS:
+    <source_video>       Source video file.
+    <source_subtitle>    Source subtitle file.
+```
+
+### download subtitle
+
+``` text
+% target/debug/subsrus download --help
+subsrus-download
+Download subtitles from SubDB (http://thesubdb.com)
+
+USAGE:
+    subsrus download [OPTIONS] <source_file>
 
 FLAGS:
     -h, --help       Prints help information
@@ -36,4 +83,3 @@ OPTIONS:
 ARGS:
     <source_file>    Source video file.
 ```
-
