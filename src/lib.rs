@@ -8,6 +8,8 @@ use bytes::Bytes;
 
 pub fn download(source: &str, langs: &str)
 {
+    println!("\nSearch for subtitles:\n\t{}\n", source);
+
     let hash = hasher::file_hash(source);
     let available_langs = subsdb::search_available(&hash).expect("search_available failed");
 
