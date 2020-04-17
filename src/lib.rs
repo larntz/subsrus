@@ -6,11 +6,12 @@ use std::fs::File;
 use std::io::prelude::*;
 use bytes::Bytes;
 
-pub fn upload(source_video: &str, source_subtitle: &str, lang: &str)
+pub fn upload(source_video: &str, source_subtitle: &str) 
 {
-    println!("upload video: \n{}", source_video);
-    println!("upload subtitle: \n{}", source_subtitle);
-    println!("upload language: \n{}", lang);
+    let result = subsdb::post_subtitle(&hasher::file_hash(source_video),
+        read_srt_file(source_subtitle));
+
+    println!("Server says: {}", result);
 }
 
 pub fn download(source: &str, langs: &str)
@@ -33,6 +34,18 @@ pub fn download(source: &str, langs: &str)
             println!("Subitle not avilable for language='{}'\n", lang);
         }
     }).collect();
+}
+
+fn read_srt_file(filename: &str) -> Vec<u8>
+{
+    let mut f = File::open(filename)
+        .expect("failed to open srt file");
+    
+    let mut buf = Vec::new();
+    f.read_to_end(&mut buf)
+        .expect("failed to read subtitle file");
+
+    buf
 }
 
 fn write_srt_file(filename: String, contents: &Bytes)

@@ -20,7 +20,6 @@ fn main() {
             subsrus::upload(
                 upload.value_of("source_video").expect("source video error"),
                 upload.value_of("source_subtitle").expect("source subtitle error"),
-                upload.value_of("language").expect("subtitle language error")
             );
         },
         _ => println!("What do you want from me?")
