@@ -1,6 +1,6 @@
 [package]
 name = "subsrus"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Luke Arntz <luke@blue42.net>"]
 homepage = "https://github.com/larntz/subsrus"
 edition = "2018"
