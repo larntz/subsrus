@@ -41,7 +41,7 @@ pub fn post_subtitle(hash: &str, subtitle: Vec<u8>) -> String
 
     match send_post_request(url, form).unwrap().status().as_u16()
     {
-        201 => String::from("Sutitle successfully uploaded."),
+        201 => String::from("Subtitle successfully uploaded."),
         403 => String::from("Subtitle already in database."),
         415 => String::from("Subtitle format unsupported."),
         400 => String::from("Bad Request"),
@@ -60,17 +60,14 @@ fn send_post_request(url: &str, form: reqwest::blocking::multipart::Form) -> Res
     if env::var("SANDBOX").is_ok()
     {
         println!("user_agent: {}", &user_agent);
+        println!("form: {:?}", form);
     }
-
-    println!("agent: {:?}", user_agent);
-    println!("form: {:?}", form);
+    
     let client = reqwest::blocking::Client::builder()
         .user_agent(user_agent)
         .build()?
         .post(url)
         .multipart(form);
-
-    println!("client: {:?}", client);
 
     client.send()
 }
