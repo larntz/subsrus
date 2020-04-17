@@ -1,14 +1,17 @@
 # subsrus
 
-CLI utility to download movie subtitles from the
+CLI utility to upload and download movie subtitles from the
 [subsdb](http://thesubdb.com/api/) api.
+
+Could use some polish but everything is working. Let me know
+if you experience bugs! Thanks.
 
 ## example
 
 ### download subtitles
 
 ``` text
-./subsrus -l es test_vids/justified.mp4
+./subsrus download -l es test_vids/justified.mp4
 
 Search for subtitles:
         test_vids/justified.mp4
