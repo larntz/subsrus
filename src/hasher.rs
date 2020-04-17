@@ -20,9 +20,9 @@ fn file_bytes(name: &str) -> [u8; READSIZE * 2 ]
     println!("looking for {:?}", name);
     let mut f = File::open(name).expect("oops::open"); 
     let mut buffer = [0; READSIZE * 2 ];
-    f.read(&mut buffer[..READSIZE]).expect("oops::start");
+    f.read_exact(&mut buffer[..READSIZE]).expect("oops::start");
     f.seek(SeekFrom::End(-1 * READSIZE as i64)).expect("oops::seek");
-    f.read(&mut buffer[READSIZE..(READSIZE * 2)]).expect("oops::end");
+    f.read_exact(&mut buffer[READSIZE..(READSIZE * 2)]).expect("oops::end");
     buffer
 }
 
