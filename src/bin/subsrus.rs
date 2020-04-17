@@ -22,6 +22,13 @@ fn main() {
                 upload.value_of("source_subtitle").expect("source subtitle error"),
             );
         },
+        ("available", Some(available)) =>
+        {
+            println!("\n\tSubtitles are available in the following languages: {}\n",
+            subsrus::available(
+                available.value_of("source_video").expect("source_video error")
+            ));
+        },
         _ => println!("What do you want from me?")
     }
 }

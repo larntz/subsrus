@@ -35,3 +35,12 @@ subcommands:
             help: Source subtitle file.
             required: true
             index: 2
+  - available:
+      about: "List available subtitle languages for video."
+      args:
+        - source_video:
+            help: Source video file.
+            required: true
+            index: 1
+
+

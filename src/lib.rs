@@ -6,6 +6,12 @@ use std::fs::File;
 use std::io::prelude::*;
 use bytes::Bytes;
 
+pub fn available(source_video: &str) -> String
+{
+    let hash = hasher::file_hash(source_video);
+    subsdb::search_available(&hash).expect("error finding available subtitles")
+}
+
 pub fn upload(source_video: &str, source_subtitle: &str) 
 {
     let result = subsdb::post_subtitle(&hasher::file_hash(source_video),
